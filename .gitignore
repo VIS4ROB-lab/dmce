@@ -1,0 +1,9 @@
+**/compile_commands.json
+*.csv
+**/plots/
+**/data/
+**/__pycache__/
+**/nohup.out
+*.pem
+*.tar.gz
+**/aws_logs/*

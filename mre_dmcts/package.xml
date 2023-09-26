@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mre_dmcts</name>
+  <version>2.0.320</version>
+  <description>
+      Multi-Robot Exploration by way of Decentralised Monte Carlo Tree Search.
+	  Top-level meta-package.
+  </description>
+
+  <maintainer email="bones@ethz.ch">Sean Bone</maintainer>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <exec_depend>mre_dmcts_core</exec_depend>
+  <exec_depend>mre_dmcts_mcplanner</exec_depend>
+  <exec_depend>mre_dmcts_msgs</exec_depend>
+  <exec_depend>mre_dmcts_nodes</exec_depend>
+  <exec_depend>mre_dmcts_sim</exec_depend>
+  <exec_depend>mre_dmcts_tests</exec_depend>
+
+  <export>
+	  <metapackage />
+  </export>
+</package>

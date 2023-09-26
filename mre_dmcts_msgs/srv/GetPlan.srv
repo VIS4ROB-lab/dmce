@@ -1,0 +1,4 @@
+bool success
+RobotPosition currentPosition
+---
+nav_msgs/Path plan

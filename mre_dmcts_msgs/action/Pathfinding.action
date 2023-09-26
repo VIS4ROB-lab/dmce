@@ -1,0 +1,11 @@
+# Goal
+uint32 robotId
+float64 x_goal
+float64 y_goal
+---
+# Result
+
+---
+# Feedback
+bool success
+nav_msgs/Path path

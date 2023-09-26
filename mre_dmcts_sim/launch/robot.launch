@@ -1,0 +1,88 @@
+<launch>
+	<arg name="plannerType" default="mcts" />
+	<arg name="nRobots" default="1" />
+	<arg name="robotId" default="1" />
+	<arg name="launch" default="true" />
+
+	<node pkg="mre_dmcts_nodes" type="nodeMain" name="SensorEmulatorServer" output="screen" args="$(arg robotId) SensorEmulatorServer" if="$(eval arg('launch'))" />
+
+	<node pkg="mre_dmcts_nodes" type="nodeMain" name="NavigationServer" output="screen" args="$(arg robotId) NavigationServer" if="$(eval arg('launch'))" />
+
+	<node pkg="mre_dmcts_nodes" type="nodeMain" name="PathfindingServer" output="log" args="$(arg robotId) PathfindingServer" if="$(eval arg('launch'))" />
+
+	<node pkg="mre_dmcts_nodes" type="nodeMain" name="PlannerServer" output="screen" args="$(arg robotId) PlannerServer" if="$(eval arg('launch'))">
+		<param name="plannerType" type="string" value="$(arg plannerType)" />
+	</node>
+
+	<node pkg="mre_dmcts_nodes" type="nodeMain" name="RobotMapServer" output="screen" args="$(arg robotId) RobotMapServer" if="$(eval arg('launch'))" />
+
+	<node pkg="mre_dmcts_nodes" type="nodeMain" name="TransformServer" output="screen" args="$(arg robotId) TransformServer" if="$(eval arg('launch'))" />
+
+	<node pkg="mre_dmcts_nodes" type="nodeMain" name="FrontierClusterServer" output="screen" args="$(arg robotId) FrontierClusterServer" if="$(eval arg('launch'))" />
+
+	<!-- This node is only launched when running the RRT planner (baseline) -->
+	<node pkg="rrt" type="rrt_node" name="RRTPlannerNode" output="screen" if="$(eval (arg('plannerType') == 'rrt' and arg('launch')))">
+		<param name="eta" value="1.0"/>
+		<param name="map_topic" value="mapViz/map"/>
+		<param name="costmap_topic" value="MapViz/inflatedMap"/>
+		<param name="robot_frame" value="robot$(arg robotId)/robot$(arg robotId)"/>
+		<param name="robot_base_frame" value="robot$(arg robotId)/robot$(arg robotId)"/>
+		<param name="info_radius" value="1"/>
+		<param name="costmap_pixel_threshold" value="0"/>
+		<param name="namespace" value="robot$(arg robotId)"/>
+		<param name="rate" value="100"/>
+		
+		<param name="n_robot" value="$(arg nRobots)"/>
+		<param name="this_robot_idx" value="$(arg robotId)"/>
+		<param name="robot_ano_frame_preffix" value="robot$(arg robotId)/robot"/>
+		<param name="robot_ano_frame_suffix" value=""/>
+	</node>
+
+
+	<!-- This node is only launched when running the MMPF planner (baseline) -->
+	<node pkg="mmpf" type="mmpf_node" name="MMPFPlannerNode" output="screen" if="$(eval (arg('plannerType') == 'mmpf' and arg('launch')))">
+		<param name="map_topic" value="mapViz/map"/>
+		<param name="costmap_topic" value="MapViz/inflatedMap"/>
+		<param name="rate" value="1"/>
+		<param name="robot_frame" value="robot$(arg robotId)/robot$(arg robotId)"/>
+		<param name="robot_base_frame" value="robot$(arg robotId)/robot$(arg robotId)"/>
+		<param name="namespace" value="robot$(arg robotId)"/>
+		
+		<param name="n_robot" value="$(arg nRobots)"/>
+		<param name="this_robot_idx" value="$(arg robotId)"/>
+		<param name="robot_ano_frame_preffix" value="robot$(arg robotId)/robot"/>
+		<param name="robot_ano_frame_suffix" value=""/>
+	</node>
+
+	
+	<!-- Translates map from grid_map format to occupancy_grid format for visualisation and baseline planners. -->
+	<node pkg="grid_map_visualization" type="grid_map_visualization" name="mapViz" output="screen" if="$(eval arg('launch'))">
+		<rosparam subst_value="true">
+            grid_map_topic: /robot$(arg robotId)/map
+            grid_map_visualizations:
+              - name: map
+                type: occupancy_grid
+                params:
+                 layer: occupancy
+                 data_min: 0.0
+                 data_max: 100.0
+        </rosparam>
+	</node>
+
+	<!-- Translates inflated map from grid_map format to occupancy_grid format for visualisation and baseline planners. -->
+	<node pkg="grid_map_visualization" type="grid_map_visualization" name="MapViz" output="screen" if="$(eval arg('launch'))">
+		<rosparam subst_value="true">
+            grid_map_topic: /robot$(arg robotId)/inflatedMap
+            grid_map_visualizations:
+              - name: inflatedMap
+                type: occupancy_grid
+                params:
+                 layer: occupancy
+                 data_min: 0.0
+                 data_max: 100.0
+        </rosparam>
+	</node>
+
+</launch>
+
+

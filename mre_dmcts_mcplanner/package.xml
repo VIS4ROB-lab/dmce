@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mre_dmcts_mcplanner</name>
+  <version>2.0.320</version>
+  <description>
+      Multi-Robot Exploration by way of Decentralised Monte Carlo Tree Search.
+      MCTS-based planner package.
+  </description>
+  <maintainer email="bones@ethz.ch">Sean Bone</maintainer>
+  <license>GPLv3</license>
+  <author email="bones@ethz.ch">Sean Bone</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>grid_map_core</depend>
+  <depend>grid_map_ros</depend>
+  <depend>grid_map_cv</depend>
+
+  <depend>mre_dmcts_core</depend>
+  <depend>mre_dmcts_msgs</depend>
+</package>
