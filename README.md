@@ -67,7 +67,7 @@ To run GUI applications such as Rviz from within the Docker container, `Makefile
 Alternatively, if you're running Ubuntu 20.04 (Focal), you can run everything locally.
 
 1. [Install ROS Noetic](http://wiki.ros.org/noetic/Installation) on your system.
-2. Read [docker/grid_map.Dockerfile](docker/grid_map.Dockerfile) and replicate the installation steps.
+2. Read [docker/dmce.Dockerfile](docker/dmce.Dockerfile) and replicate the installation steps.
 
 
 ## Utility scripts
