@@ -46,7 +46,14 @@ git clone git@github.com:VIS4ROB-lab/dmce.git
 cd dmce
 ```
 4. If you used different locations for the Catkin workspace or the repository folder, make sure to adjust the `CATKIN_WS` and `GIT` variables in `Makefile`.
-5. Run the tests with `make docker-build test`
+5. Run the tests with:
+```
+make docker-build
+make utest  # Unit tests
+make ntest  # Node-level tests
+make itest  # Integration tests
+make test   # All of the above
+```
 6. Run the simulation in headless mode with `make sim`. If you want graphical output, use `make demo` instead.
 
 #### GUI forwarding from within Docker
