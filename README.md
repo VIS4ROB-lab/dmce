@@ -1,21 +1,32 @@
 # DMCE: Decentralised Monte Carlo Exploration
 
+This project is an implementation of the multi-robot planning strategy proposed in **"Decentralised Multi-Robot Exploration using Monte Carlo Tree Search"**, published at the IROS 2023 conference. It is implemented in C++ with the framework provided by ROS Noetic.
+
+  - [Publications](#publications)
   - [Quick start](#quick-start)
   - [Utility Scripts](#utility-scripts)
   - [Code Overview](#code-overview)
   - [Adding Scenarios and Maps](#adding-scenarios-and-maps)
+  - [Questions and bug reports](#questions-and-bug-reports)
 
-# Publications
+## Publications
 
-S.Bone, L. Bartolomei, F. Kennel-Maushart and M. Chli, “Decentralised Multi-Robot Exploration using Monte Carlo Tree Search”. In IEEE Int. Conf. on Intelligent Robots and Systems (IROS), 2023. DOI: [https://doi.org/10.3929/ethz-b-000624905](https://doi.org/10.3929/ethz-b-000624905)
+If you use this work in an academic context, please cite the following publication:
+
+> S. Bone, L. Bartolomei, F. Kennel-Maushart and M. Chli, **"Decentralised Multi-Robot Exploration using Monte Carlo Tree Search"**. In IEEE Int. Conf. on Intelligent Robots and Systems (IROS), 2023. DOI: [10.3929/ethz-b-000624905](https://doi.org/10.3929/ethz-b-000624905)
+
+```
+@inproceedings{bone_decentralised_2023,
+	title = {Decentralised Multi-Robot Exploration using Monte Carlo Tree Search},
+	url = {https://doi.org/10.3929/ethz-b-000624905},
+	doi = {10.3929/ethz-b-000624905},
+	eventtitle = {36th {IEEE}/{RSJ} International Conference on Intelligent Robots and Systems ({IROS} 2023)},
+	author = {Bone, Sean and Bartolomei, Luca and Kennel-Maushart, Florian and Chli, Margarita},
+	year = {2023},
+}
+```
 
 ## Quick Start
-
-This project uses git hooks for automatic versioning of `mre_dmcts/package.xml`. After cloning the repository, enable the git hooks with:
-
-```
-git config --local core.hooksPath .githooks/
-```
 
 To compile and run the software, you can either build the Docker container, or install all the dependencies locally.
 
@@ -159,3 +170,7 @@ Note that the scenario's YAML file can set or override any number of parameters,
 
 When determining the starting position, remember that coordinates `(0,0)` are at the center of the map.
 
+
+## Questions and bug reports
+
+For any questions or bug reports please use the issue tracker on the [Github repository](https://github.com/VIS4ROB-lab/dmce).
