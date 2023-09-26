@@ -1,0 +1,54 @@
+<launch>
+	<arg name="plannerType" default="mcts" />
+
+	<node pkg="dmce_nodes" type="nodeMain" name="GroundTruthMapServer" output="screen" args="0 GroundTruthMapServer" />
+
+	<node pkg="dmce_nodes" type="nodeMain" name="GlobalMapServer" output="screen" args="0 GlobalMapServer" />
+
+    <node pkg="dmce_nodes" type="nodeMain" name="RobotMapServer" output="screen" args="0 RobotMapServer" />
+
+	<node pkg="dmce_nodes" type="nodeMain" name="ConnectivityServer" output="screen" args="0 ConnectivityServer" />
+
+	<node pkg="dmce_nodes" type="nodeMain" name="LoggingServer" output="screen" args="0 LoggingServer">
+		<param name="plannerType" type="string" value="$(arg plannerType)" />
+	</node>
+
+	<node pkg="grid_map_visualization" type="grid_map_visualization" name="MapViz" output="screen">
+		<rosparam>
+            grid_map_topic: /groundStation/map
+            grid_map_visualizations:
+              - name: map
+                type: occupancy_grid
+                params:
+                 layer: occupancy
+                 data_min: 0.0
+                 data_max: 100.0
+        </rosparam>
+	</node>
+
+	<node pkg="grid_map_visualization" type="grid_map_visualization" name="mapViz" output="screen">
+		<rosparam>
+            grid_map_topic: /groundStation/inflatedMap
+            grid_map_visualizations:
+              - name: inflatedMap
+                type: occupancy_grid
+                params:
+                 layer: occupancy
+                 data_min: 0.0
+                 data_max: 100.0
+        </rosparam>
+	</node>
+
+	<node pkg="grid_map_visualization" type="grid_map_visualization" name="mapviz" output="screen">
+		<rosparam>
+            grid_map_topic: /groundStation/GlobalMap
+            grid_map_visualizations:
+              - name: GlobalMap
+                type: occupancy_grid
+                params:
+                 layer: occupancy
+                 data_min: 0.0
+                 data_max: 100.0
+        </rosparam>
+	</node>
+</launch>

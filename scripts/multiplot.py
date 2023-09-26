@@ -75,7 +75,7 @@ if __name__ == '__main__':
     dpi = 400
     xmax = 850
     tmax = 450
-    logs_dir = "mre_dmcts_sim/logs"
+    logs_dir = "dmce_sim/logs"
     nrobots = 1
     init_labels = []
     title = "Mean and standard deviation (10 experiments)"

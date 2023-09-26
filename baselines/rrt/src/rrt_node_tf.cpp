@@ -18,7 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 Author: Jianming TONG (jtong45@gatech.edu)
 
-Modified for use with the mre_dmcts_sim environment
+Modified for use with the dmce_sim environment
 by: Sean Bone (seanbone.ch), 2022, ETH Zürich
 *******************************************************************************/
 
@@ -48,9 +48,9 @@ by: Sean Bone (seanbone.ch), 2022, ETH Zürich
 #include "move_base_msgs/MoveBaseGoal.h"
 #include <mutex>
 
-// Headers from mre_dmcts simulation
-#include "mre_dmcts_core/TypeDefs.hpp"
-#include "mre_dmcts_msgs/RobotPlan.h"
+// Headers from dmce simulation
+#include "dmce_core/TypeDefs.hpp"
+#include "dmce_msgs/RobotPlan.h"
 
 #define THRESHOLD_TRANSFORM 10 // was 0.5
 std::mutex _mt;
@@ -204,7 +204,7 @@ void mapCallBack(const nav_msgs::OccupancyGrid::ConstPtr& msg)
 {
     _mt.lock();
 	mapData=*msg;
-    // Added to remap unknown values from mre_dmcts maps
+    // Added to remap unknown values from dmce maps
     for (unsigned int i = 0; i < mapData.data.size(); i++) {
         if (mapData.data[i] > 45 && mapData.data[i] < 55) {
             mapData.data[i] = -1;
@@ -218,7 +218,7 @@ void costmapMergedCallBack(const nav_msgs::OccupancyGrid::ConstPtr& msg)
 {
     _mt.lock();
 	costmapData=*msg;
-    // Added to remap unknown values from mre_dmcts maps
+    // Added to remap unknown values from dmce maps
     for (unsigned int i = 0; i < costmapData.data.size(); i++) {
         if (costmapData.data[i] > 45 && costmapData.data[i] < 55) {
             costmapData.data[i] = -1;
@@ -337,8 +337,8 @@ int main(int argc, char **argv)
 	ros::Publisher shapes_pub   = nh.advertise<visualization_msgs::Marker>(nodename+"_shapes", 10);
 	ros::Publisher pub_frontier = nh.advertise<visualization_msgs::Marker>(nodename+"_detected_frontiers", 10);
 
-    // Publisher for sending plan to mre_dmcts simulation
-    ros::Publisher mre_dmcts_goalPublisher = nh.advertise<mre_dmcts_msgs::RobotPlan>("rrt_plan", 10);
+    // Publisher for sending plan to dmce simulation
+    ros::Publisher dmce_goalPublisher = nh.advertise<dmce_msgs::RobotPlan>("rrt_plan", 10);
 
 	// -------------------------------------wait until map is received
     std::cout << ns << "wait for map "<< std::endl;
@@ -580,15 +580,15 @@ int main(int argc, char **argv)
             }
 
 
-            // Send goal to mre_dmcts simulation environment
+            // Send goal to dmce simulation environment
             // std::cout << "Sending goal..." << std::endl;
-            mre_dmcts_msgs::RobotPlan mre_dmcts_plan;
-            mre_dmcts_plan.robotId = this_robot_idx;
-            mre_dmcts::pos_t targetPos;
+            dmce_msgs::RobotPlan dmce_plan;
+            dmce_plan.robotId = this_robot_idx;
+            dmce::pos_t targetPos;
             targetPos.x() = frontiers[current_goal_idx].point.x;
             targetPos.y() = frontiers[current_goal_idx].point.y;
-            mre_dmcts_plan.path.poses.push_back(mre_dmcts::posToPose(targetPos));
-            mre_dmcts_goalPublisher.publish(mre_dmcts_plan);
+            dmce_plan.path.poses.push_back(dmce::posToPose(targetPos));
+            dmce_goalPublisher.publish(dmce_plan);
 
 
             // std::cout << ns <<  "flush frontiers" << std::endl;

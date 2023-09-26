@@ -1,0 +1,90 @@
+<launch>
+	<arg name="plannerType" default="dmcts" /> <!-- Values: random, frontier, cluster, mcts, dmcts, rrt, mmpf -->
+	<arg name="nRobots" default="2" />
+	<arg name="scenario" default="urban2" />
+	<arg name="restrictComms" default="true" />
+	<arg name="timeMultiplier" default="1" />
+	<arg name="gamma" default="0.8" />
+	<arg name="minRollouts" default="48" />
+	<arg name="rolloutDepth" default="5" />
+	<arg name="explorationFactor" default="0.2" />
+	<arg name="useActionCaching" default="false" />
+	<arg name="randomDisplacementBranching" default="6" />
+	<arg name="frontierClusterActionBranching" default="3" />
+	<arg name="timeDiscountFactor" default="1" />
+	<arg name="reuseBranches" default="true" />
+	<arg name="useLocalReward" default="true" />
+
+	<rosparam command="load" subst_value="true" file="$(find dmce_sim)/config/sim.yaml" />
+	<rosparam file="$(find dmce_sim)/config/scenarios/$(arg scenario).yaml" command="load" subst_value="true" />
+
+	<param name="/sim/nRobots" value="$(arg nRobots)" />
+    <param name="/use_sim_time" value="false" />
+	
+    <param name="logger/enabled" value="false" />
+    <param name="/robot/startingArea/randomisePosition" value="false" />
+
+	<include file="$(find dmce_sim)/launch/robots.launch" pass_all_args="true" />
+	
+	<include ns="groundStation" file="$(find dmce_sim)/launch/groundStation.launch">
+		<arg name="plannerType" value="$(arg plannerType)" />
+	</include>
+
+  <test name="publishtest" test-name="publishtest" pkg="rostest" type="publishtest">
+    <rosparam>
+    topics:
+      - name: groundStation/map
+        timeout: 10
+      - name: groundStation/GlobalMap
+        timeout: 10
+      - name: groundStation/inflatedMap
+        timeout: 10
+      - name: groundStation/RobotConnectivity
+        timeout: 10
+      - name: robot1/map
+        timeout: 10
+      - name: robot1/inflatedMap
+        timeout: 10
+      - name: robot1/FrontierClusters
+        timeout: 10
+      - name: robot1/path
+        timeout: 10
+      - name: robot1/GlobalPlan
+        timeout: 10
+      - name: robot1/RobotMapUpdates
+        timeout: 10
+      - name: robot1/RobotPosition
+        timeout: 10
+      - name: robot1/SharedPlans
+        timeout: 10
+      - name: robot2/map
+        timeout: 10
+      - name: robot2/inflatedMap
+        timeout: 10
+      - name: robot2/path
+        timeout: 10
+      - name: robot2/GlobalPlan
+        timeout: 10
+      - name: robot2/RobotMapUpdates
+        timeout: 10
+      - name: robot2/RobotPosition
+        timeout: 10
+      - name: robot2/SharedPlans
+        timeout: 10
+    </rosparam>
+  </test>
+
+  <test test-name="advertisetest" pkg="rostest" type="advertisetest" time-limit="70.0" retry="3">
+    <rosparam>
+    services:
+      - name: /robot1/GlobalPlannerService
+        timeout: 10
+      - name: /robot2/GlobalPlannerService
+        timeout: 10
+      - name: /groundStation/GroundTruthMapService
+        timeout: 10
+      - name: /groundStation/StartingAreaService
+        timeout: 10
+    </rosparam>
+  </test>
+</launch>

@@ -1,0 +1,12 @@
+# Small "tunnels" scenario, where
+# the tunnels are rotated at 45°
+
+globalMap:
+  scenarioName: "tunnels_45"
+  resolution: 0.16  # [m]
+  groundTruthImage: "$(find dmce_sim)/maps/subt_tunnels_map_section_625px_rot45.png"
+
+robot:
+  startingArea:
+    position_x: -2 # [m]
+    position_y: 2  # [m]

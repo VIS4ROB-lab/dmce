@@ -1,0 +1,70 @@
+use_sim_time: true
+
+# The random seed is used for all random number generators.
+# Note that the simulation itself is still non-deterministic due
+# to scheduling uncertainty between processes and threads.
+# Only the initial positions are truly deterministic.
+# If 0, a randomised seed is used.
+randomSeed: 37
+
+sim_time:
+  time_multiplier: $(arg timeMultiplier) # [-] Multiplier applied to wall-clock time. Only used if !scale_with_robots
+  scale_with_robots: false # If true, time speed will slow the more robots there are
+  topic_rate: 250 # [Hz] Update frequency of /clock topic
+
+logger:
+  enabled: true
+  logDirectory: "$(find dmce_sim)/logs/"
+  logFrequency: 3 # Hz
+
+globalMap:
+  position_x: 0.0   # [m]
+  position_y: 0.0   # [m]
+
+robot:
+  diameter: 1 # [m]
+  speed: 2    # [m/s]
+  navigationCutoff: 0.1 # [m]
+  maxPlanAge: 30 # [s] If a global plan takes longer than this to execute, request a fresh one
+  randomiseInitialPosition: true
+  restrictComms: $(arg restrictComms) # If true, communications are limited to line-of-sight
+  sensorRange: 10
+  lidarRayCount: 360
+  explorationCompletionThreshold: 0.0001 # [-] Exploration is completed when the fraction of frontier cells in the map falls below this value
+  maxPathfindingFailures: 50 # [-] Max. number of consecutive pathfinding failures before robot is considered stuck
+  startingArea: # Area within which the robots's starting position is randomised
+    width: 5  # [m]
+    height: 5 # [m]
+    position_x: 0 # [m]
+    position_y: 0 # [m]
+    randomisePosition: false
+    requiredFreeSpace: 0.5 # [-] Minimum fraction of free space in the starting area
+  map: # Parameters for the robot's local submap
+    length_x: 80 # [m]
+    length_y: 80 # [m]
+    resolution: 0.5 # [m]
+
+mcts:
+  reuseBranches: $(arg reuseBranches) # [-] Whether to keep branches from previous search trees
+  rolloutDepth: $(arg rolloutDepth) # [-] Number of random actions simulated in each rollout
+  minRollouts: $(arg minRollouts) # [-] Minimum number of rollouts to perform before delivering a plan
+  minPlanDepth: 1 # [-] Minimum number of states in a plan for it to be accepted
+  minPlanValue: 0.001 # [-] If an MCTS plan has less than MinPlanValue value, FrontierPlanner is used instead
+  explorationFactor: $(arg explorationFactor)  # [-] Controls exploration-eploitation tradeoff in UCB
+  iterationDiscountFactor: $(arg gamma) # (0;1] Controls sensitivity to changes in world state
+  timeDiscountFactor: $(arg timeDiscountFactor) # (0;1] Actions are discounted based on timeDiscountFactor^actionDuration
+  actionBaseDuration: 1 # [s] Base duration added to every action
+  robotLidarRayCount: 90 # [-] Lidar ray count used in rollouts
+  robotSensorRange: 10   # [-] Sensor range used in rollouts
+  useActionCaching: $(arg useActionCaching) # Toggle action caches on of off
+  useLocalReward: $(arg useLocalReward) # [-] Toggles whether to use local reward function f = g(actions) - g(idle)
+  spatialHashBinSize: 0.16 # [m] Size of bins (cells) when performing spatial hashing
+  planBufferSize: 10 # [-] Size of the backlog of other robot's plans kept by DMCTS
+  randomDisplacement:
+    maxTurnAngle: 90 # [deg] in [0; 180] Maximum deviation of an action's direction from its parent
+    spreadAngle: 15 # [deg] in [0; 180] Minimum angle between sibling actions
+    length: 6 # [m] Size of the displacement
+    branchingFactor: $(arg randomDisplacementBranching) # [-] Number of children to generate for each node
+  frontierClusterAction:
+    branchingFactor: $(arg frontierClusterActionBranching) # [int in range 0-5] Number of frontier clusters to consider (closest first)
+

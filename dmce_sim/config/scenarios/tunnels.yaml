@@ -1,0 +1,12 @@
+# Basic small "tunnels" scenario
+
+globalMap:
+  scenarioName: "tunnels"
+  resolution: 0.16  # [m]
+  groundTruthImage: "$(find dmce_sim)/maps/subt_tunnels_map_section_625px.png"
+
+robot:
+  speed: 1    # [m/s]
+  startingArea:
+    position_x: 23 # [m]
+    position_y: 23 # [m]

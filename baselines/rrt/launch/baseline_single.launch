@@ -1,7 +1,7 @@
 <launch>
-	<include file="$(find mre_dmcts_sim)/launch/sim.launch" pass_all_args="true" />
+	<include file="$(find dmce_sim)/launch/sim.launch" pass_all_args="true" />
 	
-	<include ns="viz" file="$(find mre_dmcts_sim)/launch/viz.launch" />
+	<include ns="viz" file="$(find dmce_sim)/launch/viz.launch" />
 
     <include file="$(find rrt)/launch/single_rrt_node.launch" />
 </launch>

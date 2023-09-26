@@ -3,7 +3,7 @@
 # This is a shell script whose job it is to update the
 #  package version numbers before each commit is made
 
-packages="mre_dmcts_core mre_dmcts_msgs mre_dmcts_nodes mre_dmcts_sim mre_dmcts_tests mre_dmcts mre_dmcts_mcplanner"
+packages="dmce_core dmce_msgs dmce_nodes dmce_sim dmce_tests dmce dmce_mcplanner"
 
 # Get number of commits in the history
 revisioncount=$(git log --oneline | wc -l)

@@ -7,7 +7,7 @@ nruns = 15
 #  plannerTypes = ["rrt nRobots:=1", "rrt nRobots:=2", "rrt nRobots:=3", "rrt nRobots:=4"]
 run_duration = 605 # seconds
 plannerTypes = ["dmcts", "cluster", "mcts"]
-cmd = f"timeout {run_duration}s roslaunch mre_dmcts_sim demo.launch restrictComms:=false scenario:=urban plannerType:="
+cmd = f"timeout {run_duration}s roslaunch dmce_sim demo.launch restrictComms:=false scenario:=urban plannerType:="
 
 cleanerProcess = subprocess.Popen("make logclean build-pkg", shell=True)
 cleanerProcess.wait()

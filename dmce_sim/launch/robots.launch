@@ -1,0 +1,38 @@
+<launch>
+	<arg name="plannerType" default="mcts" /> <!-- Values: random, frontier, mcts -->
+	<arg name="nRobots" default="1" />
+
+	<include ns="robot1" file="$(find dmce_sim)/launch/robot.launch">
+		<arg name="plannerType" value="$(arg plannerType)" />
+		<arg name="nRobots" value="$(arg nRobots)" />
+		<arg name="robotId" value="1" />
+	</include>
+	
+	<include ns="robot2" file="$(find dmce_sim)/launch/robot.launch">
+		<arg name="plannerType" value="$(arg plannerType)" />
+		<arg name="nRobots" value="$(arg nRobots)" />
+		<arg name="robotId" value="2" />
+		<arg name="launch" value="$(eval arg('nRobots') >= 2)" />
+	</include>
+	
+	<include ns="robot3" file="$(find dmce_sim)/launch/robot.launch">
+		<arg name="plannerType" value="$(arg plannerType)" />
+		<arg name="nRobots" value="$(arg nRobots)" />
+		<arg name="robotId" value="3" />
+		<arg name="launch" value="$(eval arg('nRobots') >= 3)" />
+	</include>
+
+	<include ns="robot4" file="$(find dmce_sim)/launch/robot.launch">
+		<arg name="plannerType" value="$(arg plannerType)" />
+		<arg name="nRobots" value="$(arg nRobots)" />
+		<arg name="robotId" value="4" />
+		<arg name="launch" value="$(eval arg('nRobots') >= 4)" />
+	</include>
+
+	<include ns="robot5" file="$(find dmce_sim)/launch/robot.launch">
+		<arg name="plannerType" value="$(arg plannerType)" />
+		<arg name="nRobots" value="$(arg nRobots)" />
+		<arg name="robotId" value="5" />
+		<arg name="launch" value="$(eval arg('nRobots') >= 5)" />
+	</include>
+</launch>

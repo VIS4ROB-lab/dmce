@@ -83,8 +83,8 @@
   <exec_depend>visualization_msgs</exec_depend>
 
 
-  <depend>mre_dmcts_msgs</depend>
-  <depend>mre_dmcts_core</depend>
+  <depend>dmce_msgs</depend>
+  <depend>dmce_core</depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

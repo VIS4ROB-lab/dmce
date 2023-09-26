@@ -1,0 +1,32 @@
+<launch>
+	<!-- HEADLESS version of the simulation -->
+	<!-- To run with display, see demo.launch -->
+
+	<arg name="plannerType" default="dmcts" /> <!-- Values: random, frontier, cluster, mcts, dmcts, rrt, mmpf -->
+	<arg name="nRobots" default="4" />
+	<arg name="scenario" default="urban2" />
+	<arg name="restrictComms" default="false" />
+	<arg name="timeMultiplier" default="1" />
+	<arg name="gamma" default="0.8" />
+	<arg name="minRollouts" default="48" />
+	<arg name="rolloutDepth" default="5" />
+	<arg name="explorationFactor" default="0.2" />
+	<arg name="useActionCaching" default="false" />
+	<arg name="randomDisplacementBranching" default="6" />
+	<arg name="frontierClusterActionBranching" default="3" />
+	<arg name="timeDiscountFactor" default="0.9" />
+	<arg name="reuseBranches" default="true" />
+	<arg name="useLocalReward" default="true" />
+
+	<rosparam file="$(find dmce_sim)/config/sim.yaml" command="load" subst_value="true" />
+	<rosparam file="$(find dmce_sim)/config/scenarios/$(arg scenario).yaml" command="load" subst_value="true" />
+	<param name="/sim/nRobots" value="$(arg nRobots)" />
+
+	<include file="$(find dmce_sim)/launch/robots.launch" pass_all_args="true" />
+	
+	<include ns="groundStation" file="$(find dmce_sim)/launch/groundStation.launch">
+		<arg name="plannerType" value="$(arg plannerType)" />
+	</include>
+
+	<node pkg="dmce_nodes" type="clock" name="ClockServer" output="screen" args="" />
+</launch>

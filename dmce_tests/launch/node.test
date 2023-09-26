@@ -1,0 +1,70 @@
+<launch>
+	<arg name="plannerType" default="dmcts" /> <!-- Values: random, frontier, cluster, mcts, dmcts, rrt, mmpf -->
+	<arg name="nRobots" default="2" />
+	<arg name="scenario" default="urban2" />
+	<arg name="restrictComms" default="true" />
+	<arg name="timeMultiplier" default="1" />
+	<arg name="gamma" default="0.8" />
+	<arg name="minRollouts" default="48" />
+	<arg name="rolloutDepth" default="5" />
+	<arg name="explorationFactor" default="0.2" />
+	<arg name="useActionCaching" default="false" />
+	<arg name="randomDisplacementBranching" default="6" />
+	<arg name="frontierClusterActionBranching" default="3" />
+	<arg name="timeDiscountFactor" default="1" />
+	<arg name="reuseBranches" default="true" />
+	<arg name="useLocalReward" default="true" />
+
+  <rosparam command="load" subst_value="true" file="$(find dmce_sim)/config/sim.yaml" />
+  <rosparam file="$(find dmce_sim)/config/scenarios/$(arg scenario).yaml" command="load" subst_value="true" />
+  <param name="/sim/nRobots" value="$(arg nRobots)" />
+
+  <param name="/globalMap/length_x"   type="double" value="5" />
+  <param name="/globalMap/length_y"   type="double" value="15.0" />
+  <param name="/globalMap/position_x" type="double" value="0.0" />
+  <param name="/globalMap/position_y" type="double" value="0.0" />
+  <param name="/globalMap/resolution" type="double" value="5" />
+  <param name="/globalMap/groundTruthImage" type="string" value="$(find dmce_sim)/maps/testMap.png" />
+  <param name="/robot/randomiseInitialPosition" type="bool" value="false" />
+  <param name="use_sim_time" type="bool" value="false" />
+
+  <test test-name="TestRobotMapServer" pkg="dmce_tests" type="dmce_tests_TestRobotMapServer" time-limit="10.0" args="" />
+
+  <test test-name="TestGlobalMapServer" pkg="dmce_tests" type="dmce_tests_TestGlobalMapServer" time-limit="10.0" args="" />
+
+  <test test-name="TestGroundTruthMapServer" pkg="dmce_tests" type="dmce_tests_TestGroundTruthMapServer" time-limit="10.0" args="" />
+
+  <test test-name="TestPlannerServer_random" pkg="dmce_tests" type="dmce_tests_TestPlannerServer" time-limit="10.0" args="">
+	<param name="~plannerType" type="string" value="random" />
+  </test>
+
+  <test test-name="TestPlannerServer_frontier" pkg="dmce_tests" type="dmce_tests_TestPlannerServer" time-limit="10.0" args="">
+	<param name="~plannerType" type="string" value="frontier" />
+  </test>
+
+  <test test-name="TestPlannerServer_mcts" pkg="dmce_tests" type="dmce_tests_TestPlannerServer" time-limit="10.0" args="">
+	<param name="~plannerType" type="string" value="mcts" />
+  </test>
+
+  <test test-name="TestPlannerServer_dmcts" pkg="dmce_tests" type="dmce_tests_TestPlannerServer" time-limit="10.0" args="">
+	<param name="~plannerType" type="string" value="dmcts" />
+  </test>
+
+  <test test-name="TestPlannerServer_cluster" pkg="dmce_tests" type="dmce_tests_TestPlannerServer" time-limit="10.0" args="">
+	<param name="~plannerType" type="string" value="cluster" />
+  </test>
+
+  <test test-name="TestPathfindingServer" pkg="dmce_tests" type="dmce_tests_TestPathfindingServer" time-limit="10.0" args="" />
+
+  <test test-name="TestOmplPathfinding" pkg="dmce_tests" type="dmce_tests_TestOmplPathfinding" time-limit="10.0" args="" />
+
+  <test test-name="TestSensorEmulatorServer" pkg="dmce_tests" type="dmce_tests_TestSensorEmulatorServer" time-limit="10.0" args="">
+	<param name="/globalMap/groundTruthImage" type="string" value="$(find dmce_sim)/maps/testMap_10x10.png" />
+  </test>
+
+  <test test-name="TestNavigationServer" pkg="dmce_tests" type="dmce_tests_TestNavigationServer" time-limit="10.0" args="">
+	<param name="~plannerType" type="string" value="$(arg plannerType)" />
+	<param name="/globalMap/groundTruthImage" type="string" value="$(find dmce_sim)/maps/testMap_10x10.png" />
+	<param name="/globalMap/resolution" type="double" value="1" />
+  </test>
+</launch>

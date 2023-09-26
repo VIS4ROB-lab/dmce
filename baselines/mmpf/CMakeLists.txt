@@ -17,8 +17,8 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   actionlib
 
-  mre_dmcts_msgs
-  mre_dmcts_core
+  dmce_msgs
+  dmce_core
 )
 
 # generate_messages(

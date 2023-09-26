@@ -70,7 +70,7 @@ There are a number of utility scripts for automated execution of multiple runs a
 ### `scripts/run_batch.py`
 This scripts performs the following steps locally:
 
-1. Erase the current logs in `mre_dmcts_sim/logs/`
+1. Erase the current logs in `dmce_sim/logs/`
 2. Build the package with `make build-pkg`
 3. Run the demo (with RViz window) for the specified duration multiple times, for each specified configuration.
 
@@ -87,7 +87,7 @@ See [Launchfiles and Arguments](#launchfiles-and-arguments) for an exhaustive li
 
 Example usage: 
 ```
-./scripts/plot.py -n2 -l"DMCTS,Cluster" mre_dmcts_sim/logs/2robots/dmcts/ mre_dmcts_sim/logs/2robots/cluster/
+./scripts/plot.py -n2 -l"DMCTS,Cluster" dmce_sim/logs/2robots/dmcts/ dmce_sim/logs/2robots/cluster/
 ```
 
 Plots will be written to `<CWD>/plots/*.png`. See `./scripts/plot.py -h` for more options.
@@ -96,7 +96,7 @@ Plots will be written to `<CWD>/plots/*.png`. See `./scripts/plot.py -h` for mor
 
 Example usage: 
 ```
-./scripts/stats.py mre_dmcts_sim/logs/2robots/dmcts/ mre_dmcts_sim/logs/2robots/cluster/
+./scripts/stats.py dmce_sim/logs/2robots/dmcts/ dmce_sim/logs/2robots/cluster/
 ```
 
 See `./scripts/stats.py -h` for more details.
@@ -123,18 +123,18 @@ GIT ?= "${HOME}/ros_repos/"
 - `ntest`: run node-level tests
 - `itest`: run integration tests
 - `clean`: remove build artifacts
-- `logclean`: remove run logs from `mre_dmcts_sim/logs/`
+- `logclean`: remove run logs from `dmce_sim/logs/`
 
 With `make sim` and `make demo` you can set roslaunch arguments with the `ARGS` variable. For instance:
 ```
 make demo ARGS="scenario:=urban1 plannerType:=cluster nRobots:=2"
 ```
 ### Launchfiles and Arguments
-The main entry point for the simulation is the `mre_dmcts_sim/sim.launch` launchfile, which launches the simulation in headless mode. `demo.launch` is the same but additionally opens an RViz window. The following roslaunch arguments are recognized:
+The main entry point for the simulation is the `dmce_sim/sim.launch` launchfile, which launches the simulation in headless mode. `demo.launch` is the same but additionally opens an RViz window. The following roslaunch arguments are recognized:
 
 - `plannerType`: planner to run. Possible values: random, frontier, cluster, mcts, **dmcts**, rrt, mmpf
 - `nRobots`: number of robots to simulate. Maximum 5.
-- `scenario`: scenario to use. Will include the `mre_dmcts_sim/config/scenarios/<scenario>.yaml` parameter file, which determines the map and starting conditions. Possible values: **tunnels**, tunnels_45, urban1, urban2, urban_full.
+- `scenario`: scenario to use. Will include the `dmce_sim/config/scenarios/<scenario>.yaml` parameter file, which determines the map and starting conditions. Possible values: **tunnels**, tunnels_45, urban1, urban2, urban_full.
 - `restrictComms`: boolean, default **true**. If true, LoS restrictrions will be applied to communications between robots.
 - `timeMultiplier`: scaling applied to simulation time VS wall-clock time. E.g. with `timeMultiplier=.5`, every second of real time is half a second of simulated time.
 - `gamma`: iteration discounting factor, (0;1].
@@ -153,13 +153,13 @@ This project uses automated tests, divided into three levels:
 In order to add a new map to simulate:
 
 1. Create a black-and-white PNG file as the ground-truth map. Note that the colours are inverted w.r.t. what you see in RViz: black means open space (occupancy probability 0) and white means occupied space (occupancy probability 1). Make sure you have no grey pixels, only pure white or black (in GIMP, use Colors > Threshold).
-2. Save the PNG map in `mre_dmcts_sim/maps/`.
-3. Create a scenario config file in `mre_dmcts_sim/config/scenarios/<scenario-name>.yaml`. Here is a minimal example:
+2. Save the PNG map in `dmce_sim/maps/`.
+3. Create a scenario config file in `dmce_sim/config/scenarios/<scenario-name>.yaml`. Here is a minimal example:
 ```
 globalMap:
   scenarioName: "<scenario-name>"
   resolution: 0.16  # Resolution of the map in meters/pixel
-  groundTruthImage: "$(find mre_dmcts_sim)/maps/<my-scenario-map>.png"
+  groundTruthImage: "$(find dmce_sim)/maps/<my-scenario-map>.png"
 
 robot:
   startingArea: # Must be in a valid (traversable) position for your map
@@ -168,7 +168,7 @@ robot:
 ```
 4. You should now be able to run the scenario with `make demo ARGS="scenario:=<scenario-name>"`.
 
-Note that the scenario's YAML file can set or override any number of parameters, as it is included after the main parameter file `mre_dmcts_sim/config/sim.yaml`. See for instance [urban_full.yaml](mre_dmcts_sim/config/scenarios/urban_full.yaml).
+Note that the scenario's YAML file can set or override any number of parameters, as it is included after the main parameter file `dmce_sim/config/sim.yaml`. See for instance [urban_full.yaml](dmce_sim/config/scenarios/urban_full.yaml).
 
 When determining the starting position, remember that coordinates `(0,0)` are at the center of the map.
 

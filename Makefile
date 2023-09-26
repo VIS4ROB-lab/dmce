@@ -44,7 +44,7 @@ docker-build:
 
 .PHONY: build-pkg
 build-pkg:
-	${DOCKER_RUN} ${CATKIN_MAKE} mre_dmcts
+	${DOCKER_RUN} ${CATKIN_MAKE} dmce
 
 .PHONY: build-pkg-local
 build-pkg-local:
@@ -60,13 +60,13 @@ bash: xhost-open
 # Run simulation with RViz display
 .PHONY: demo
 demo: build-pkg # xhost-open
-	# ${DOCKER_RUN} roslaunch mre_dmcts_sim demo.launch
-	roslaunch mre_dmcts_sim demo.launch ${ARGS}
+	# ${DOCKER_RUN} roslaunch dmce_sim demo.launch
+	roslaunch dmce_sim demo.launch ${ARGS}
 
 # Run the headless simulation
 .PHONY: sim
 sim: build-pkg
-	${DOCKER_RUN} roslaunch mre_dmcts_sim sim.launch ${ARGS}
+	${DOCKER_RUN} roslaunch dmce_sim sim.launch ${ARGS}
 
 .PHONY: rviz
 rviz: xhost-open
@@ -78,28 +78,28 @@ roscore:
 
 .PHONY: test
 test:
-	${DOCKER_RUN} ${CATKIN_MAKE} run_tests_mre_dmcts_tests
+	${DOCKER_RUN} ${CATKIN_MAKE} run_tests_dmce_tests
 
 #${DOCKER_RUN} catkin_test_results
 
 .PHONY: utest
 utest: # gTest-based unit tests
-	${DOCKER_RUN} ${CATKIN_MAKE} run_tests_mre_dmcts_tests_gtest
+	${DOCKER_RUN} ${CATKIN_MAKE} run_tests_dmce_tests_gtest
 
 .PHONY: ntest
 ntest: # rostest-based node-level tests
-	${DOCKER_RUN} ${CATKIN_MAKE} run_tests_mre_dmcts_tests_rostest_launch_node.test
+	${DOCKER_RUN} ${CATKIN_MAKE} run_tests_dmce_tests_rostest_launch_node.test
 
 .PHONY: itest
 itest: # rostest-based integration tests
-	${DOCKER_RUN} ${CATKIN_MAKE} run_tests_mre_dmcts_tests_rostest_launch_integration.test
+	${DOCKER_RUN} ${CATKIN_MAKE} run_tests_dmce_tests_rostest_launch_integration.test
 
 
 ### Other
 
 .PHONY: perms-logs
 perms-logs:
-	${DOCKER_RUN} chmod -R 777 src/ros_repos/dmce/mre_dmcts_sim/logs/
+	${DOCKER_RUN} chmod -R 777 src/ros_repos/dmce/dmce_sim/logs/
 
 .PHONY: xhost-open
 xhost-open:
@@ -117,5 +117,5 @@ clean:
 
 .PHONY: logclean
 logclean: perms-logs
-	rm -rf mre_dmcts_sim/logs/*
+	rm -rf dmce_sim/logs/*
 

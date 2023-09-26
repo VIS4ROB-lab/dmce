@@ -80,7 +80,7 @@
   <exec_depend>tf</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>
 
-  <depend>mre_dmcts_core</depend>
+  <depend>dmce_core</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

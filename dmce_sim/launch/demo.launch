@@ -1,0 +1,5 @@
+<launch>
+	<include file="$(find dmce_sim)/launch/sim.launch" pass_all_args="true" />
+	
+	<include ns="viz" file="$(find dmce_sim)/launch/viz.launch" />
+</launch>

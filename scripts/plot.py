@@ -67,7 +67,7 @@ if __name__ == '__main__':
     dpi = 400
     xmax = 1500
     tmax = 600
-    logs_dir = "mre_dmcts_sim/logs"
+    logs_dir = "dmce_sim/logs"
     nrobots = 1
     plannerNames = ['mcts', 'frontier']
     labels = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]

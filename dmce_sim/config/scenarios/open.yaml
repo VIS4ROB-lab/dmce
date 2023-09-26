@@ -1,0 +1,6 @@
+# Basic small open terrain scenario
+
+globalMap:
+  scenarioName: "open"
+  resolution: 0.16  # [m]
+  groundTruthImage: "$(find dmce_sim)/maps/open_625px.png"

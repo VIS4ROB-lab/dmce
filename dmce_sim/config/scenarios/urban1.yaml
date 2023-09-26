@@ -1,0 +1,20 @@
+# DARPA SubT "urban" scenario
+
+globalMap:
+  scenarioName: "urban1"
+  resolution: 0.2   # [m]
+  groundTruthImage: "$(find dmce_sim)/maps/urban_half1.png"
+
+
+robot:
+  diameter: 0.5 # [m]
+  speed: 1    # [m/s]
+  map: # Parameters for the robot's local submap
+    resolution: 0.25 # [m]
+  startingArea:
+    position_x: 16 # [m]
+    position_y: -3.8 # [m]
+
+mcts:
+  randomDisplacement:
+    length: 3 # [m] Size of the displacement

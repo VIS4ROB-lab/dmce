@@ -1,0 +1,11 @@
+# Full-size "tunnels" scenario
+
+globalMap:
+  scenarioName: "tunnels_full"
+  resolution: 0.1   # [m]
+  groundTruthImage: "$(find dmce_sim)/maps/subt_tunnels_map.png"
+
+robot:
+  startingArea:
+    position_x: -2 # [m]
+    position_y: 2  # [m]

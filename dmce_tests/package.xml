@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dmce_tests</name>
+  <version>2.1.4</version>
+  <description>
+      Multi-Robot Exploration by way of Decentralised Monte Carlo Tree Search.
+      Package containing unit, node-level and integration tests.
+  </description>
+  <maintainer email="bones@ethz.ch">Sean Bone</maintainer>
+  <license>GPLv3</license>
+  <author email="bones@ethz.ch">Sean Bone</author>
+
+  <test_depend>gtest</test_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>dmce_core</depend>
+  <depend>dmce_mcplanner</depend>
+  <depend>dmce_sim</depend>
+  <depend>dmce_nodes</depend>
+  <depend>dmce_msgs</depend>
+</package>

@@ -15,8 +15,8 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   visualization_msgs
 
-  mre_dmcts_msgs
-  mre_dmcts_core
+  dmce_msgs
+  dmce_core
 )
 
 # generate_messages(

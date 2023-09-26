@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="dmce_nodes" type="nodeMain" name="RobotMarkerServer" output="screen" args="0 RobotMarkerServer" />
+
+	<!-- Launch RViz with the demo configuration -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find dmce_sim)/rviz/demo.rviz" />
+</launch>
