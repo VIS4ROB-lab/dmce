@@ -6,9 +6,9 @@
       Multi-Robot Exploration by way of Decentralised Monte Carlo Tree Search.
       MCTS-based planner package.
   </description>
-  <maintainer email="bones@ethz.ch">Sean Bone</maintainer>
+  <maintainer email="">Sean Bone</maintainer>
   <license>GPLv3</license>
-  <author email="bones@ethz.ch">Sean Bone</author>
+  <author email="">Sean Bone</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 
