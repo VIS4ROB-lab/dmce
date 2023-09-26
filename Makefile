@@ -14,8 +14,7 @@ CATKIN_WS ?= "${HOME}/catkin_ws"
 # Location of the git repository on the local machine (mounted for source)
 GIT ?= "${HOME}/ros_repos/"
 
-#DOCKER_IMAGE = osrf/ros:noetic-desktop-full
-DOCKER_IMAGE ?= grid_map
+DOCKER_IMAGE ?= dmce
 
 DOCKER_FILE ?= "${GIT}/dmce/docker/${DOCKER_IMAGE}.Dockerfile"
 
