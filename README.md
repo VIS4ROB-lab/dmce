@@ -1,8 +1,8 @@
 # DMCE: Decentralised Monte Carlo Exploration
 
-This project is an implementation of the multi-robot planning strategy proposed in **"Decentralised Multi-Robot Exploration using Monte Carlo Tree Search"**, published at the IROS 2023 conference. It is implemented in C++ with the framework provided by ROS Noetic.
+This project is an implementation of the multi-robot planning strategy proposed in **"Decentralised Multi-Robot Exploration using Monte Carlo Tree Search"**, published at the IROS 2023 conference. It is implemented in C++ with the framework provided by ROS Noetic. See the [demo video](https://youtu.be/3RfDq8wlnPI).
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/3RfDq8wlnPI/0.jpg)](http://www.youtube.com/watch?v=3RfDq8wlnPI "DMCE Video Demo")
+<!--[![IMAGE ALT TEXT](http://img.youtube.com/vi/3RfDq8wlnPI/0.jpg)](http://www.youtube.com/watch?v=3RfDq8wlnPI "DMCE Video Demo")-->
 
   - [Publications](#publications)
   - [Quick start](#quick-start)
