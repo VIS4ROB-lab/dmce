@@ -69,6 +69,12 @@ Alternatively, if you're running Ubuntu 20.04 (Focal), you can run everything lo
 1. [Install ROS Noetic](http://wiki.ros.org/noetic/Installation) on your system.
 2. Read [docker/dmce.Dockerfile](docker/dmce.Dockerfile) and replicate the installation steps.
 
+### Standalone planner
+
+If you wish to use the planner implementation in a differemt simulation environment, the `dmce_mcplanner` package contains the planning logic with minimal dependencies.
+
+In the `dmce_nodes` package you can find the `PlannerServer` class, which exposes the DMCE planner as a ROS node. The `nodeMain.cpp` file in the same package is used to instantiate the node and run the main loop (and is the roslaunch target, see `dmce_sim/launch/robot.launch`).
+
 
 ## Utility scripts
 
